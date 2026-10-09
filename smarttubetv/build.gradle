@@ -168,7 +168,9 @@ android {
             targetSdkVersion project.properties.compileSdkVersion
         }
         stfdroid {
-            applicationId "app.smarttube.fdroid"
+            applicationId "app.smarttube.prijevod"
+            versionCode 2455
+            versionNameSuffix "-nas-2"
             minSdkVersion 21
             targetSdkVersion project.properties.compileSdkVersion
 

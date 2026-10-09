@@ -33,6 +33,7 @@ public interface PlayerUI {
     void setNextTitle(Video nextVideo);
     void showDebugInfo(boolean show);
     void showSubtitles(boolean show);
+    void setTranslatedSubtitle(String text);
     void loadStoryboard();
     void setTitle(String title);
     void showProgressBar(boolean show);

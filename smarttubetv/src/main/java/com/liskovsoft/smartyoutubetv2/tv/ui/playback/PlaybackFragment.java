@@ -1363,6 +1363,12 @@ public class PlaybackFragment extends SeekModePlaybackFragment implements Playba
         }
     }
 
+    @Override
+    public void setTranslatedSubtitle(String text) {
+        createSubtitleManager();
+        if (mSubtitleManager != null) mSubtitleManager.setTranslatedSubtitle(text);
+    }
+
     public boolean isDebugInfoShown() {
         createDebugManager();
         return mDebugInfoManager != null && mDebugInfoManager.isShown();

@@ -151,6 +151,9 @@ public class PlayerUIController extends BasePlayerController {
             return;
         }
 
+        BosnianSubtitleController translation = getController(BosnianSubtitleController.class);
+        if (translation.isEnabled()) { translation.disable(); return; }
+
         boolean enabled = buttonState == PlayerUI.BUTTON_ON;
 
         // First run
@@ -214,6 +217,8 @@ public class PlayerUIController extends BasePlayerController {
                             getContext().getString(R.string.subtitles_disabled)));
             settingsPresenter.showDialog();
         }));
+
+        getController(BosnianSubtitleController.class).appendMenu(settingsPresenter);
 
         settingsPresenter.appendSingleButton(UiOptionItem.from(subtitlesAutoCategoryTitle, optionItem -> {
             List<FormatItem> subtitleFormats = getPlayer().getSubtitleFormats();
@@ -870,7 +875,9 @@ public class PlayerUIController extends BasePlayerController {
             return;
         }
 
-        getPlayer().setButtonState(R.id.lb_control_closed_captioning, isSubtitleEnabled() && isSubtitleSelected() ? PlayerUI.BUTTON_ON : PlayerUI.BUTTON_OFF);
+        getPlayer().setButtonState(R.id.lb_control_closed_captioning,
+                getController(BosnianSubtitleController.class).isEnabled() || isSubtitleEnabled() && isSubtitleSelected() ?
+                        PlayerUI.BUTTON_ON : PlayerUI.BUTTON_OFF);
     }
 
     private void startTempBackgroundMode(Class<?> clazz) {

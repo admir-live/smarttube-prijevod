@@ -49,6 +49,10 @@ public class AppUpdatePresenter extends BasePresenter<Void> implements AppUpdate
     }
 
     public void start(boolean forceCheck) {
+        if ("app.smarttube.prijevod".equals(getContext().getPackageName())) {
+            if (forceCheck) MessageHelpers.showMessage(getContext(), "Naš prijevod se ažurira instalacijom novog vlastitog APK-a.");
+            return;
+        }
         mIsForceCheck = forceCheck;
 
         if (forceCheck) {

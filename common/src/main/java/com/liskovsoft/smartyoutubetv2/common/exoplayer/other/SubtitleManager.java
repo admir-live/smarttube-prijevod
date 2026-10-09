@@ -22,6 +22,7 @@ import com.liskovsoft.smartyoutubetv2.common.prefs.common.DataChangeBase.OnDataC
 import com.liskovsoft.smartyoutubetv2.common.prefs.PlayerData;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SubtitleManager implements TextOutput, OnDataChange {
@@ -32,6 +33,8 @@ public class SubtitleManager implements TextOutput, OnDataChange {
     private final AppPrefs mPrefs;
     private final PlayerData mPlayerData;
     private CharSequence subsBuffer;
+    private String translatedSubtitle;
+    private List<Cue> originalCues = Collections.emptyList();
 
     public static class SubtitleStyle {
         public final int nameResId;
@@ -71,9 +74,18 @@ public class SubtitleManager implements TextOutput, OnDataChange {
 
     @Override
     public void onCues(List<Cue> cues) {
+        originalCues = cues;
+        if (translatedSubtitle != null) return;
         if (mSubtitleView != null) {
             mSubtitleView.setCues(forceCenterAlignment(cues));
         }
+    }
+
+    public void setTranslatedSubtitle(String text) {
+        if (java.util.Objects.equals(translatedSubtitle, text)) return;
+        translatedSubtitle = text;
+        mSubtitleView.setCues(text == null ? forceCenterAlignment(originalCues) :
+                text.isEmpty() ? Collections.emptyList() : Collections.singletonList(new Cue(text)));
     }
 
     public void show(boolean show) {

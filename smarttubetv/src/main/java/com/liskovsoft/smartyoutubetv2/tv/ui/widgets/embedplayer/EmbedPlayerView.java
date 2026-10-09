@@ -182,6 +182,11 @@ public class EmbedPlayerView extends PlayerView implements PlaybackView {
     }
 
     @Override
+    public void setTranslatedSubtitle(String text) {
+
+    }
+
+    @Override
     public void loadStoryboard() {
 
     }

@@ -2,6 +2,16 @@ apply from: gradle.ext.sharedModulesConstants
 apply plugin: 'kotlin-android'
 apply plugin: 'com.android.library'
 
+def privateTranslationFile = new File(System.getProperty('user.home'), '.smarttube-prijevod/openai.properties')
+def privateTranslation = new Properties()
+if (privateTranslationFile.exists()) {
+    privateTranslationFile.withInputStream { privateTranslation.load(it) }
+}
+def privateApiKey = privateTranslation.getProperty('apiKey', '').trim()
+if (privateApiKey && (!privateApiKey.startsWith('sk-') || privateApiKey =~ /\s/ || privateApiKey.length() < 20 || privateApiKey.length() > 512)) {
+    throw new GradleException('Invalid OpenAI API key in the private configuration file.')
+}
+
 android {
     // FIX: Default interface methods are only supported starting with Android N (--min-api 24)
     compileOptions {
@@ -18,6 +28,7 @@ android {
         targetSdkVersion project.properties.targetSdkVersion
         versionCode 10
         versionName "1.0"
+        buildConfigField 'String', 'BOSNIAN_API_KEY', '""'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles 'consumer-rules.pro'
@@ -47,7 +58,10 @@ android {
     productFlavors {
         stbeta {}
         ststable {}
-        stfdroid {}
+        stfdroid {
+            // shortcut: this personal APK contains an extractable key; use a server before sharing the app.
+            buildConfigField 'String', 'BOSNIAN_API_KEY', groovy.json.JsonOutput.toJson(privateApiKey)
+        }
     }
 }
 
@@ -59,6 +73,7 @@ dependencies {
     testImplementation 'org.robolectric:robolectric:' + robolectricVersion
 
     implementation project(':sharedutils')
+    implementation 'com.google.code.gson:gson:' + gsonVersion
     implementation project(':fragment-1.1.0')
     implementation project(':mediaserviceinterfaces')
     implementation project(':youtubeapi')
