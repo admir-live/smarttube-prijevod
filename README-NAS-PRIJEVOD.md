@@ -10,6 +10,10 @@ APK: **`releases\SmartTube-Nas-Prijevod.apk`**. Paket: `app.smarttube.prijevod`.
 
 Direktno preuzimanje u Downloaderu: `https://github.com/admir-live/smarttube-prijevod/releases/latest/download/SmartTube-Nas-Prijevod.apk`. Link uvijek preuzima posljednji objavljeni vlastiti build.
 
+**Downloader kod: `4702445`** — AFTVnews je dodijelio sedam cifara. Kratki link: [aftv.news/4702445](https://aftv.news/4702445). [Provjera odredišta koda](https://aftv.news/4702445+).
+
+Na Android TV-u otvori Downloader → Home, unesi `4702445`, odaberi **Go**, pa **Install** nakon preuzimanja. Ako TV traži dozvolu za instalaciju nepoznatih aplikacija, dozvoli je Downloaderu i ponovo odaberi **Install**. API ključ se učitava automatski.
+
 1. Prenesi APK na TV preko USB-a ili aplikacije za prijenos fajlova.
 2. Na TV-u dozvoli instalaciju iz odabranog file managera, pa otvori APK.
 3. Pokreni **SmartTube Naš prijevod**. Po želji prijavi YouTube nalog u ovoj zasebnoj aplikaciji.
